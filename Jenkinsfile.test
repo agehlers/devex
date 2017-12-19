@@ -1,8 +1,4 @@
 node('maven') {
-    stage('checkout') {
-       echo "checking out source"
-       checkout scm
-    }
     stage('build') {
 	    echo "Building..."
       echo ">>> Get Image Hash"
