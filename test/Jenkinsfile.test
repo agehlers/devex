@@ -1,18 +1,17 @@
 node('master') {
     stage('build') {
-	    echo "Building..."
       echo ">>> Get Image Hash"
       IMAGE_HASH = sh (
-         script: 'export IMAGE_HASH=$(oc get istag devxp:latest -o template --template="{{.image.dockerImageReference}}"|awk -F "/" \'{print $3}\'; echo $IMAGE_HASH)',
+         script: 'oc get istag devxp:latest -o template --template="{{.image.dockerImageReference}}"|awk -F "/" \'{print $3}\',
  	       returnStdout: true).trim()
-      echo "IMAGE_HASH: ${IMAGE_HASH}"
+      echo ">> IMAGE_HASH: ${IMAGE_HASH}"
       //sh 'export IMAGE_SHA=$(oc get istag devxp:latest -o template --template="{{.image.dockerImageReference}}"|awk -F "/" \'{print $3}\')'
       //echo ">>> ImageSha: ${IMAGE_SHA} ImageHash: ${IMAGE_HASH}"
-      sh 'env'
-      echo ">>>> Build Complete"
-      openshiftTag destStream: 'devxp', verbose: 'true', destTag: 'tryout', srcStream: 'devxp', srcTag: '$IMAGE_HASH'
-      echo ">>>> Deployment Complete"
-      //openshiftVerifyService svcName: 'platform-dev', namespace: 'devex-platform-dev'
-      //echo ">>>> Service Verification Complete"
+      withEnv(['IMAGEID=${IMAGE_HASH}']) {      
+        openshiftTag destStream: 'devxp', verbose: 'true', destTag: 'tryout', srcStream: 'devxp', srcTag: '$IMAGEID'
+        echo ">>>> Deployment Complete"
+        //openshiftVerifyService svcName: 'platform-dev', namespace: 'devex-platform-dev'
+        //echo ">>>> Service Verification Complete"
+      }
     }
-} 
+}
