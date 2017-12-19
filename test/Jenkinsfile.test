@@ -7,7 +7,7 @@ node('master') {
       echo ">> IMAGE_HASH: $IMAGE_HASH"
       openshiftTag destStream: 'devxp', verbose: 'true', destTag: 'tryout', srcStream: 'devxp', srcTag: "${IMAGE_HASH}"
       echo ">>>> Deployment Complete"
-      openshiftVerifyService svcName: 'platform-dev', namespace: 'devex-platform-dev', verbose: 'true'
-      echo ">>>> Service Verification Complete"
+      //openshiftVerifyService svcName: 'platform-dev', apiURL: 'http://platform-dev.devex-platform-dev.svc:3000/', namespace: 'devex-platform-dev', verbose: 'true'
+      //echo ">>>> Service Verification Complete" 
     }
 }
