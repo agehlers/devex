@@ -8,7 +8,7 @@ node('master') {
              echo i
            }
            
-       eho "each loop"    
+       echo "each loop"    
        myList.each { item -> echo "${item}" }
            
     }
