@@ -23,8 +23,8 @@ node('master') {
            }
            
        echo "each loop"    
-       myList.each { item -> echo "${item}" }
-
+       echo_all(myList)
+       
        echo_via_for_loop(myList)
        
     }
