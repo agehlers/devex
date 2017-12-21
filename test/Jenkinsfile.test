@@ -7,6 +7,10 @@ node('master') {
            for (i in myList) {
              echo i
            }
+           
+       eho "each loop"    
+       myList.each { item -> echo "${item}" }
+           
     }
 
     stage('build') {
