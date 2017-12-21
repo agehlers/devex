@@ -2,7 +2,11 @@ def APPNAME = 'devxp'
 node('master') {
     stage('Test Arrays') {
        def myList = ['a', 'b', 'c']
-       for(int i = 0; i < myList.size(); i++) { def elem = myList[i]; println $elem }
+       
+           // prints 'a', 'b' and 'c'
+           for (i in myList) {
+             echo i
+           }
     }
 
     stage('build') {
